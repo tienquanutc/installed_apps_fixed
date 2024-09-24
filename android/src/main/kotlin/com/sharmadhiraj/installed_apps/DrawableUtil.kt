@@ -6,14 +6,18 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import java.io.ByteArrayOutputStream
 
-class DrawableUtil {
 
+class DrawableUtil {
     companion object {
         fun drawableToByteArray(drawable: Drawable): ByteArray {
-            val bitmap = drawableToBitmap(drawable)
-            ByteArrayOutputStream().use { stream ->
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-                return stream.toByteArray()
+            try {
+                val bitmap = drawableToBitmap(drawable)
+                ByteArrayOutputStream().use { stream ->
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                    return stream.toByteArray()
+                }
+            } catch (ignored: Throwable) {
+                return byteArrayOf()
             }
         }
 
